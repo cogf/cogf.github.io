@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Notey",
+  "version": "1.21.5",
+  "description": "A simple note-taking extension.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "contextMenus",
+    "tabs"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "commands": {
+    "save-note": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Save current note"
+    },
+    "new-note": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+N",
+        "mac": "Command+Shift+N"
+      },
+      "description": "Create a new note"
+    }
+  }
+}

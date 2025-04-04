@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Notey</title>
+    <style>
+        /* Minecraft Font */
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('Minecraft.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'Minecraft', monospace;
+            width: 320px;
+            padding: 15px;
+            background-image: url('https://imgs.search.brave.com/FIlvMPJ7QWXVvL6p5-wTOgLwelH0To2HC_t6IFvRmHc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDM5ODA4/MDUuanBn');
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #d4d4d4;
+            border-radius: 12px;
+            backdrop-filter: blur(15px);
+            background-color: rgba(30, 30, 30, 0.7);
+            overflow: hidden;
+            position: relative;
+            transition: background-color 0.3s ease;
+        }
+
+        body:hover {
+            background-color: rgba(30, 30, 30, 0.8);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 2.7em;
+            font-weight: bold;
+            background: linear-gradient(to right, #1da9ef, #89cff0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.3s ease, background-position 0.5s ease, color 0.3s ease;
+            background-size: 200% auto;
+            cursor: pointer;
+        }
+
+        h1:hover {
+            background-position: right center;
+            transform: translateY(-3px);
+            background: linear-gradient(to right, #89cff0, #77dd77);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #fff;
+        }
+
+        textarea {
+            width: 100%;
+            height: auto;
+            min-height: 120px;
+            margin-bottom: 20px;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: rgba(51, 51, 51, 0.5);
+            color: #fff;
+            resize: vertical;
+            font-size: 1.1em;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            box-shadow: 0 0 10px rgba(137, 207, 240, 0.6);
+            outline: none;
+            border-color: #89cff0;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 9px rgba(0, 0, 0, 0.4);
+            background-color: rgba(51, 51, 51, 0.5);
+        }
+
+        button:hover {
+            background-color: rgba(68, 68, 68, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        #notesList {
+            margin-bottom: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .noteItem {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: rgba(51, 51, 51, 0.5);
+            color: #fff;
+            font-size: 1em;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+            cursor: grab;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            opacity: 0.9;
+        }
+
+        .noteItem:hover {
+            background-color: rgba(68, 68, 68, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+            opacity: 1;
+        }
+
+        .noteItem span {
+            flex-grow: 1;
+            word-break: break-word;
+            transition: color 0.3s ease;
+        }
+
+        .noteItem:hover span {
+            color: #89cff0;
+        }
+
+        .noteItem img {
+            max-width: 90px;
+            max-height: 90px;
+            margin-top: 7px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .noteItem img:hover {
+            transform: scale(1.1);
+        }
+
+        .deleteNoteBtn {
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-size: 200% auto;
+            transition: background-position 0.5s ease, transform 0.2s ease, box-shadow 0.3s ease, color 0.3s ease;
+            background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
+            font-size: 0.8em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .deleteNoteBtn:hover {
+            background-position: right center;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.4);
+            color: #ff0000;
+        }
+
+        /* Search bar */
+        #searchBar {
+            width: calc(100% - 24px);
+            /* Adjust width to prevent overflow */
+            padding: 12px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 10px;
+            background-color: rgba(51, 51, 51, 0.5);
+            color: #fff;
+            font-size: 1.1em;
+            backdrop-filter: blur(10px);
+            transition: box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        #searchBar:focus {
+            box-shadow: 0 0 10px rgba(137, 207, 240, 0.6);
+            outline: none;
+            background-color: rgba(68, 68, 68, 0.5);
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            height: auto;
+            margin-top: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+            display: none;
+            transition: transform 0.3s ease;
+        }
+
+        #imagePreview:hover {
+            transform: scale(1.05);
+        }
+
+        #clock {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.9em;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: color 0.3s ease, transform 0.3s ease;
+            /* Added transform transition */
+        }
+
+        #clock:hover {
+            color: #89cff0;
+            transform: scale(1.1);
+            /* Scale on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="clock"></div>
+    <h1>Notey</h1>
+    <h2>note something</h2>
+    <textarea id="noteInput" placeholder="Enter your note here"></textarea>
+    <input type="file" id="fileInput" style="display: none;" accept="image/*">
+    <button id="attachFileBtn">Attach Image</button>
+    <button id="saveBtn">Add Note</button>
+    <button id="clearAllBtn">Clear All Notes</button>
+
+    <!-- Search bar -->
+    <input type="text" id="searchBar" placeholder="Search notes...">
+
+    <div id="notesList">
+        <!-- Notes will be displayed here -->
+    </div>
+
+    <!-- Image Preview -->
+    <img id="imagePreview" src="#" alt="Image Preview">
+
+    <!-- Export/Import buttons -->
+    <button id="exportBtn">Export Notes</button>
+    <button id="importBtn">Import Notes</button>
+    <input type="file" id="importFile" style="display: none;">
+
+    <script src="popup.js"></script>
+</body>
+
+</html>

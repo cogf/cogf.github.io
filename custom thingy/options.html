@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Notey Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 15px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #optionsContainer {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            background-color: #fff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="color"] {
+            margin-bottom: 10px;
+        }
+
+        #status {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Notey Options</h1>
+    <div id="optionsContainer">
+        <label for="backgroundColor">Background Color:</label>
+        <input type="color" id="backgroundColor" value="#f4f4f4">
+
+        <label for="textColor">Text Color:</label>
+        <input type="color" id="textColor" value="#333333">
+
+        <div id="status"></div>
+        <button id="saveOptions">Save Options</button>
+    </div>
+    <script src="options.js"></script>
+</body>
+
+</html>
